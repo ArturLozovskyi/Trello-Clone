@@ -1,0 +1,3 @@
+1. Run in folder server  server.js
+2. Run ng serve in folder ngApp
+3. Go to http://localhost:4200
