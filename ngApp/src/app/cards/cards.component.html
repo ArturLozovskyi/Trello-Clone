@@ -1,0 +1,49 @@
+<div class="row justify-content-left">
+  <div class="col-8 row">
+    <div *ngFor="let card of cards" class="card border-primary mb-3 m-1" style="max-width: 18rem; min-width: 18rem; overflow: auto; max-height: 18rem;">
+      <div class="card-header bg-transparent border-primary">
+        <div class="row">
+          <div class="col-sm-10">
+            <p (click)='updatingCard(card)' *ngIf="noEditCard || card._id != updatingCardId; else edit;">{{card.name}}</p> 
+            <ng-template #edit >
+              <div class="input-group mb-3">
+                <input type="text" onfocus="this.select()" class="form-control" (keyup.enter)='updateCard(card)' aria-describedby="basic-addon2" [value]='card.name' [(ngModel)]="card.name" required>
+                <div class="input-group-append" >
+                  <button class="btn btn-outline-secondary btn-sm" type="button" (click)='updateCard(card)'><i class="fas fa-check"></i></button>
+                  <button class="btn btn-outline-secondary btn-sm" type="button" (click)='editCardCancel()'><i class="fas fa-times-circle"></i></button>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-outline-secondary btn-sm float-right" type="button" (click)='deleteCard(card)'><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        </div>
+      <div class="card-body text-primary">
+        <tasks *ngFor="let task of getTasks(card)" [task]='task'></tasks>
+        <div class="input-group mb-3" *ngIf='card._id == isAddTaskId'>
+          <input type="text" class="form-control" aria-describedby="basic-addon2" placeholder="Task name" (keyup.enter)='addTask(card)' [(ngModel)]="addTaskData.text" required >
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary btn-sm" type="button" (click)='addTask(card)'><i class="fas fa-check"></i></button>
+            <button class="btn btn-outline-secondary btn-sm" type="button" (click)='addTaskCancel()'><i class="fas fa-times-circle"></i></button>
+          </div>
+        </div>
+        <button class="btn btn-success btn-sm float-right m-1" (click)='isAddingTask(card)'>Add task</button>
+      </div>     
+    </div>
+  </div>
+  <div class="col-4">  
+      <button (click)="isAddingCard()" class="btn btn-success mb-3 m-1 float-right" type="submit">Add card</button>
+      <div class="input-group mb-3" *ngIf='isAddCard'>
+        <input  [(ngModel)]="addCardData.name" type="text" class="form-control" aria-describedby="basic-addon2" placeholder="Card name" (keyup.enter)='addCard()' name="name" required>
+        <div class="input-group-append" >
+          <button class="btn btn-outline-secondary btn-sm" type="button" (click)='addCard()'><i class="fas fa-check"></i></button>
+          <button class="btn btn-outline-secondary btn-sm" type="button" (click)='addCardCancel()'><i class="fas fa-times-circle"></i></button>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+

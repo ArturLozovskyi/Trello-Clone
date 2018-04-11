@@ -1,0 +1,19 @@
+<div class="cantainer">
+  <div class="row">
+      <div class="col-sm-10">
+        <p (click)="editTask()" *ngIf="noEditTask; else edit;">{{task.text}}</p>
+        <ng-template #edit>
+          <div class="input-group mb-3">
+            <input type="text" onfocus="this.select()" class="form-control" (keyup.enter)='updateTask(task)' aria-describedby="basic-addon2" [value]='task.text' [(ngModel)]="task.text" required>
+            <div class="input-group-append" >
+              <button class="btn btn-outline-secondary btn-sm" type="button" (click)='updateTask(task)'><i class="fas fa-check"></i></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button" (click)='editTaskCancel()'><i class="fas fa-times-circle"></i></button>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-sm-2">
+        <button class="btn btn-outline-secondary btn-sm float-right" (click)='deleteTask(task)'><i class="fas fa-minus"></i></button>
+      </div>
+  </div>
+</div>
